@@ -23,11 +23,11 @@ def main():
     while repeated_frequency == -1:
         for line in frequency_changes:
             cur_frequency = frequencyChange(cur_frequency, line)
-            if repeated_frequency == -1:
-                if calculated_frequencies.get(cur_frequency) is not None:
-                    repeated_frequency = cur_frequency
-                else:
-                    calculated_frequencies[cur_frequency] = True
+            if calculated_frequencies.get(cur_frequency) is not None:
+                repeated_frequency = cur_frequency
+                break
+            else:
+                calculated_frequencies[cur_frequency] = True
         if iterations == 1:
             print("Calculated Frequency is {}".format(cur_frequency))
         iterations = iterations + 1
