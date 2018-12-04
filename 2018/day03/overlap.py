@@ -36,13 +36,33 @@ def checkOverlap(fabric, line):
     return amountOverlap
 
 
+def hasOverlap(fabric, line):
+    left = getNumber(line, '@', ',')
+    top = getNumber(line, ',', ':')
+    width = getNumber(line, ':', 'x')
+    height = getNumber(line, 'x', -1)
+    for x in range(left, left + width):
+        for y in range(top, top + height):
+            if fabric[x][y] > 1:
+                return True
+    return False
+
+
 def main():
     fabric = initFabric()
     amountOverlap = 0
+    all_lines = []
     with open('input.txt', 'r') as inputfile:
-        for line in inputfile:
-            amountOverlap += checkOverlap(fabric, line)
+        all_lines = inputfile.readlines()
+    for line in all_lines:
+        amountOverlap += checkOverlap(fabric, line)
     print('There is {} inches of overlap'.format(amountOverlap))
+    claim_num = 0
+    for line in all_lines:
+        claim_num = getNumber(line, '#', ' ')
+        if not hasOverlap(fabric, line):
+            break
+    print('Claim {} has no overlap'.format(claim_num))
 
 
 if __name__ == "__main__":
